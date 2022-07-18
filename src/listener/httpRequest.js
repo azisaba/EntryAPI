@@ -13,7 +13,7 @@ ran by node.js
 
 const router = require("express").Router();
 const tokenManager = require("../token/tokenManager");
-const entryManager = require("../util/entryContentManager");
+const entryManager = require("../entry/entryContentManager");
 const receiveEntry = require("../entry/receiveEntry");
 
 
