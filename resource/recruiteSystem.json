@@ -21,5 +21,6 @@
 		"RecruitmentId",
 		"timestamp",
 		"contents"
-	]
+	],
+	"archiveDuration": 10080
 }
