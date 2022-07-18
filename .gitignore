@@ -1,7 +1,8 @@
-# Node modules
+# SystemDir
 /node_modules/
+/.idea/
 
-#bots config
+#apps config
 /config/
 
 #log files
