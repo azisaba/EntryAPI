@@ -5,7 +5,7 @@ EntryReSender
 resource.js
  
 ran by node.js
-2022-7-2
+2022-7-19
 */
 
 /*
@@ -63,6 +63,10 @@ module.exports =  {
     },
     "recruitSystem.json" : {
         pass : "./config/recruitSystem.json",
+        keys : {}
+    },
+    "reviewEntries.json" : {
+        pass : "./config/reviewEntries.json",
         keys : {}
     }
 }
