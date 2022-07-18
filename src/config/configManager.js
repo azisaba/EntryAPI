@@ -5,7 +5,7 @@ EntryReSender for discord bot
 
 ran by node.js
 
-2022-7-18
+2022-7-19
 
 */
 
@@ -19,6 +19,7 @@ const guildData = config.loadConfig("guildData.json");
 const RecruitmentsData = config.loadConfig("RecruitmentsData.json");
 const OrgData = config.loadConfig("OrgData.json");
 const RecruitSystemData = config.loadConfig("recruitSystem.json");
+const reviewEntries = config.loadConfig("reviewEntries.json");
 
 
 exports.getBotData = (key)=>{
@@ -66,9 +67,28 @@ exports.getRecruitSystemData = (key)=>{
     return RecruitSystemData[key];
 }
 
+exports.getReviewEntry = (key)=>{
+    return reviewEntries[key];
+}
+
+exports.getAllReviewEntreis = ()=>{
+    return reviewEntries;
+}
+
+exports.setReviewEntry = (key, value)=>{
+    reviewEntries[key] = value;
+}
+
+exports.removeReviewEntry = (key)=>{
+    if(reviewEntries[key]==undefined) throw Error("The element does not exist.")
+    delete reviewEntries[key];
+}
+
+
 exports.saveConfig = ()=>{
     config.save("guildData.json", guildData);
     config.save("RecruitmentsData.json", RecruitmentsData);
     config.save("recruitSystem.json", RecruitSystemData);
     config.save("OrgData.json", OrgData);
+    config.save("reviewEntries.json", reviewEntries);
 }
