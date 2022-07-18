@@ -11,7 +11,7 @@ ran by node.js
 
 const configManager = require("../config/configManager");
 const createThread = require("../util/discord/channelCreate");
-const entryManager = require("../util/entryContentManager");
+const entryManager = require("./entryContentManager");
 
 let DiscordClient = null;
 

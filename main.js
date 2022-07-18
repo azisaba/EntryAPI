@@ -30,7 +30,7 @@ const tokenManager = require("./src/token/tokenManager");
 //init
 require("./src/util/discord/channelCreate").init(DiscordClient);
 require("./src/entry/receiveEntry").init(DiscordClient);
-require("./src/util/entryContentManager").init();
+require("./src/entry/entryContentManager").init();
 const apiSrv = express();
 
 
