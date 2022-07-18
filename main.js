@@ -7,7 +7,7 @@ main.js
  
 ran by node.js
 
-2022-7-18
+2022-7-19
 
 */
 'use strict'
@@ -30,6 +30,7 @@ const tokenManager = require("./src/token/tokenManager");
 //init
 require("./src/util/discord/channelCreate").init(DiscordClient);
 require("./src/entry/receiveEntry").init(DiscordClient);
+require("./src/util/discord/sendMessage").init(DiscordClient);
 require("./src/entry/entryContentManager").init();
 const apiSrv = express();
 
