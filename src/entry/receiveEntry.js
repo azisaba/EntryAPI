@@ -26,7 +26,7 @@ exports.receiveEntry = async(entryData)=>{
     
     const sendContents = entryManager.formatToEmbedFromEntryData(entryData);
     sendContents["content"] = recruitmentData.mention;
-
+    console.log(thread)
     thread.send(sendContents);
 };  
 
