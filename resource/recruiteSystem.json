@@ -1,0 +1,25 @@
+{
+    "TopicsList" : {
+        "name":"名前",
+        "mcid":"MCID",
+        "discordUserName":"Discordユーザー名",
+        "twitterId":"TwitterアカウントID",
+        "reasonForApplying":"志望動機",
+        "career":"運営経験",
+        "participatingProject":"関わっているプロジェクト",
+        "availableTimeOfDay":"一日に活動可能できる時間",
+        "availableDaysOfWeek":"活動可能な曜日",
+        "availableTimeZone":"活動可能な時間帯",
+        "skills":"所持技術",
+        "jobs":"希望職種",
+        "playtime":"アジ鯖プレイ時間",
+        "selfPR":"自己PR",
+        "entryRecruitments":"応募した募集"
+    },
+    "requestBody": [
+		"entryId",
+		"RecruitmentId",
+		"timestamp",
+		"contents"
+	]
+}

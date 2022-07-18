@@ -1,0 +1,8 @@
+{
+    "NAME" : "EntryReSender",
+    "MAIN_TOKEN" : "",
+    "DIV_TOKEN" : "",
+    "PREFIX" : "//",
+    "COMMAND" : "ers",
+    "PORT" : 3000
+}
