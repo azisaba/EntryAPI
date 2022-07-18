@@ -21,7 +21,6 @@ exports.init = ()=>{
     configManager.getRecruitSystemData("requestBody").forEach(value=>{firstTopics.push(value)});
     const TopicsList = configManager.getRecruitSystemData("TopicsList");
     for(const key in TopicsList) secondTopics.push(key);
-    console.log(secondTopics)
 }
 
 exports.checkEntryDataForm = (entryData)=>{
@@ -39,7 +38,6 @@ exports.checkEntryDataForm = (entryData)=>{
 
 exports.formatToEmbedFromEntryData = (entryData)=>{
     const color = !existRecruitment(entryData.RecruitmentId) ? "#f90906" : !receptionRecruitment(entryData.RecruitmentId) ? "#ffb60d" : "#06f919"
-    console.log(buildEmbedField(entryData.contents))
     return {embeds: [new Discord.MessageEmbed()
         .setTitle(`${configManager.getRecruitmentsData(entryData.RecruitmentId).name}(${entryData.RecruitmentId}) - 応募ID ${entryData.entryId}`)
         .setColor(color)
@@ -65,7 +63,6 @@ function receptionRecruitment(RecruitmentId){
 function buildEmbedField(contents){
     const field = [];
     for(const key of secondTopics) {
-        console.log(`${key} : ${configManager.getRecruitSystemData("TopicsList")[key]}`)
         if(key==="mcid"){
             field.push({
                 name : configManager.getRecruitSystemData("TopicsList")[key],
