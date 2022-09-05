@@ -26,6 +26,8 @@ const configManager = require("./src/config/configManager");
 const Package = require("./package.json");
 const apiMiddleware = require("./src/listener/httpRequest");
 const tokenManager = require("./src/token/tokenManager");
+const sabwebapiAuth = require("./src/punishment/sabwebapiAuthentication");
+const sab = require("./src/punishment/sabwebapiCaller")
 
 //init
 require("./src/util/discord/channelCreate").init(DiscordClient);
@@ -41,6 +43,7 @@ apiSrv.use('/', apiMiddleware.middleware);
 
 logger.info(`This service is standing now...`);
 process.on("exit", ()=>{
+	sabwebapiAuth.invalidateToken();
 	configManager.saveConfig();
 	DiscordClient.destroy();
     logger.info(`service end.`);
