@@ -5,14 +5,16 @@ EntryReSender for discord bot
 
 ran by node.js
 
-2022-9-6
+2022-9-8
 
 */
 
 'use strict'
 
+const {TextChannel} = require("discord.js");
+
 class Organization{
-    constructor(name, sign, channelId) {
+    constructor(name, sign, channel) {
         /**
          * @type {String} 組織名
          */
@@ -24,10 +26,19 @@ class Organization{
         this.sign = sign;
 
         /**
-         * @type {Boolean} 組織応募情報送信チャンネル
+         * @type {TextChannel} 組織応募情報送信チャンネル
          */
-        this.channelId = channelId;
+        this.channel = channel;
     }
 
-    //delete, setChannelId ...
+    /**
+     * 組織応募情報を送信するチャンネルを設定する。
+     * @param {TextChannel} channel 組織応募情報送信チャンネル
+     */
+    setChannel(channel){
+        this.channel = channel;
+    }
+    //delete ...
 }
+
+module.exports = Organization;
