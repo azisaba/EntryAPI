@@ -16,7 +16,7 @@ const {GuildMember} = require("discord.js");
 const {Punishment} = require("./Punishment");
 
 class Applicant{
-    constructor(name, minecraftPlayer, DiscordGuildMember, punishment, twitterId) {
+    constructor(name, minecraftPlayer, DiscordGuildMember, punishments, twitterId) {
         /**
          * @type {String} 応募者の名前
          */
@@ -33,9 +33,9 @@ class Applicant{
         this.discord = DiscordGuildMember;
 
         /**
-         * @type {Punishment} 応募者のMinecraftの処罰データ
+         * @type {Array<Punishment>} 応募者のMinecraftの処罰データの配列
          */
-        this.punishment = punishment;
+        this.punishments = punishments;
 
         /**
          * @type {String} 応募者のTwitterのId
