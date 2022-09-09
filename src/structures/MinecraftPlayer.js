@@ -32,7 +32,7 @@ class MinecraftPlayer{
      * @return {String} プレイヤーの現在のipアドレス
      */
     async getCurrentIpAddress(){
-        const playerData = await sabwebapiCaller.getPlayerData(this.uuid);
+        const playerData = await sabwebapiCaller.getPlayerDataByUUID(this.uuid);
         return playerData.ip;
     }
 
@@ -41,7 +41,7 @@ class MinecraftPlayer{
      * @return {Date} プレイヤーの最初のログイン日時
      */
     async getFirstLoginDate(){
-        const playerData = await sabwebapiCaller.getPlayerData(this.uuid);
+        const playerData = await sabwebapiCaller.getPlayerDataByUUID(this.uuid);
         return new Date(playerData.first_login);
     }
 
@@ -50,7 +50,7 @@ class MinecraftPlayer{
      * @return {Date} プレイヤーの最後のログイン日時
      */
     async getLastLoginDate(){
-        const playerData = await sabwebapiCaller.getPlayerData(this.uuid);
+        const playerData = await sabwebapiCaller.getPlayerDataByUUID(this.uuid);
         return new Date(playerData.last_login);
     }
 
@@ -61,7 +61,7 @@ class MinecraftPlayer{
      * @return {Array<{ip: String, lastSeen: Date}>} ipアドレスと確認時刻のオブジェクトの配列が返る。
      */
     async getIpAddressHistory(){
-        const playerData = await sabwebapiCaller.getPlayerData(this.uuid);
+        const playerData = await sabwebapiCaller.getPlayerDataByUUID(this.uuid);
         return playerData.ipAddressHistory.map(value=>{
             return {
                 ip: value.ip,
@@ -77,7 +77,7 @@ class MinecraftPlayer{
      * @return {Array<{username: String, lastSeen: Date}>} ipアドレスと確認時刻のオブジェクトの配列が返る。
      */
     async getUserNameHistory(){
-        const playerData = await sabwebapiCaller.getPlayerData(this.uuid);
+        const playerData = await sabwebapiCaller.getPlayerDataByUUID(this.uuid);
         return playerData.usernameHistory.map(value=>{
             return {
                 username: value.name,
