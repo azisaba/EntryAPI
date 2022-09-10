@@ -5,14 +5,14 @@ EntryReSender for discord bot
  
 ran by node.js
 
-2022-7-18
+2022-9-10
 
 */
 
 'use strict'
 
 const router = require("express").Router();
-const tokenManager = require("../token/tokenManager");
+const tokenManager = require("../authorization/tokenManager");
 const entryManager = require("../entry/entryContentManager");
 const receiveEntry = require("../entry/receiveEntry");
 

@@ -7,7 +7,7 @@ main.js
  
 ran by node.js
 
-2022-7-19
+2022-9-10
 
 */
 'use strict'
@@ -25,7 +25,7 @@ const logger = require('./src/util/logFile');
 const configManager = require("./src/config/configManager");
 const Package = require("./package.json");
 const apiMiddleware = require("./src/listener/httpRequest");
-const tokenManager = require("./src/token/tokenManager");
+const tokenManager = require("./src/authorization/tokenManager");
 const sabwebapiAuth = require("./src/punishment/sabwebapiAuthentication");
 const sab = require("./src/punishment/sabwebapiCaller")
 

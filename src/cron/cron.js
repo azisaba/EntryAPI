@@ -15,7 +15,7 @@ ran by node.js
 const entryCache = require("../entry/entryCache");
 const sendMessage = require("..//util/discord/sendMessage");
 const configManager = require("../config/configManager");
-const tokenManager = require("../token/tokenManager");
+const tokenManager = require("../authorization/tokenManager");
 
 module.exports = async (client)=>{
     setInterval( async () => {
