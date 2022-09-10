@@ -56,15 +56,13 @@ class Punishment{
         this.server = server;
 
         /**
-         * @type {String} extra
-         */
-        this.extra = extra;
-
-        /**
          * @type {Boolean} 処罰が有効か
          */
         this.active = active;
     }
+
+    //to method
+    //reason, endtime,active, proofs
 }
 
 module.exports = Punishment;
