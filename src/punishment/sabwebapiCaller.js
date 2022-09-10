@@ -5,13 +5,12 @@ EntryReSender for discord bot
 
 ran by node.js
 
-2022-7-29
+2022-9-10
 
 */
 
 'use strict'
 
-const request = require('request-promise');
 const configManager = require("../config/configManager");
 const cacheManager = require("../util/cacheManager");
 const auth = require("./sabwebapiAuthentication");
@@ -27,17 +26,17 @@ exports.getPlayerDataByUUID = async (uuid)=>{
     }
 
     const option = {
-        url : `${authData.url}/players/get/${uuid}`,
+        method : "GET",
         headers: {
             "Content-type": "application/json",
             "X-SpicyAzisaBan-Session": await auth.getToken(),
             "Origin" : "https://spicyazisaban.azisaba.net"
         }
     }
-    return request.get(option)
-        .then(r => {
-            playerDataCache.set(uuid, r, (new Date()).setMinutes((new Date()).getMinutes()+2))
-            return JSON.parse(r, "utf-8");
+    return await fetch(`${authData.url}/players/get/${uuid}`, option)
+        .then(async r => {
+            playerDataCache.set(uuid, r, (new Date()).setMinutes((new Date()).getMinutes() + 2))
+            return await r.json();
         })
         .catch(e => {
             console.log(e);
@@ -55,24 +54,24 @@ exports.getPlayerDataByName = async (name)=>{
     */
 
     const option = {
-        url : `${authData.url}/misc/search`,
+        method: "POST",
         headers: {
             "Content-type": "application/json",
             "X-SpicyAzisaBan-Session": await auth.getToken(),
             "Origin" : "https://spicyazisaban.azisaba.net"
         },
-        form: {
-            "query": "huda0209",
+        body: JSON.stringify({
+            "query": name,
             "type": "players,punishments"
-        }
+        })
     }
-    return request.post(option)
-        .then(r => {
-            const players = (JSON.parse(r, "utf-8")).players;
+    return fetch(`${authData.url}/misc/search`, option)
+        .then(async r => {
+            const players = await (await r.json()).players;
 
-            if(players.length===0) return null;
-            const player = players.find(value=>{
-                return value.name===name;
+            if (players.length === 0) return null;
+            const player = players.find(value => {
+                return value.name === name;
             })
 
             /*フォーマットが本当は違う
@@ -84,7 +83,7 @@ exports.getPlayerDataByName = async (name)=>{
                 "ip": "192.168.2.1"
             }
              */
-            playerDataCache.set(player.uuid, player, (new Date()).setMinutes((new Date()).getMinutes()+2))
+            playerDataCache.set(player.uuid, player, (new Date()).setMinutes((new Date()).getMinutes() + 2))
             return player
         })
         .catch(e => {
@@ -98,17 +97,17 @@ exports.getPunishmentData = async (punishmentId)=>{
         return punishmentCache.get(punishmentId);
     }
     const option = {
-        url : `${authData.url}/punishments/get/${punishmentId}`,
+        method: "GET",
         headers: {
             "Content-type": "application/json",
             "X-SpicyAzisaBan-Session": await auth.getToken(),
             "Origin" : "https://spicyazisaban.azisaba.net"
         }
     }
-    return  request.get(option)
-        .then(r => {
-            playerDataCache.set(punishmentId, r, (new Date()).setMinutes((new Date()).getMinutes()+2))
-            return JSON.parse(r, "utf-8");
+    return await fetch(`${authData.url}/punishments/get/${punishmentId}`, option)
+        .then(async r => {
+            playerDataCache.set(punishmentId, r, (new Date()).setMinutes((new Date()).getMinutes() + 2))
+            return await r.json();
         })
         .catch(e => {
             console.log(e);
@@ -120,18 +119,19 @@ exports.getPossessionAccounts = async (uuid)=>{
     if(accountsCache.exist(uuid)){
         return accountsCache.get(uuid).player;
     }
+    const token = await auth.getToken();
     const option = {
-        url : `${authData.url}/players/find_accounts/${uuid}`,
+        method: "GET",
         headers: {
             "Content-type": "application/json",
-            "X-SpicyAzisaBan-Session": await auth.getToken(),
-            "Origin" : "https://spicyazisaban.azisaba.net"
+            "X-SpicyAzisaBan-Session": token,
+            "Origin": "https://spicyazisaban.azisaba.net"
         }
     }
-    return  request.get(option)
-        .then(r => {
-            const res = JSON.parse(r, "utf-8");
-            accountsCache.set(uuid, res, (new Date()).setMinutes((new Date()).getMinutes()+2))
+    return await fetch(`${authData.url}/players/find_accounts/${uuid}`, option)
+        .then(async r => {
+            const res = await r.json();
+            accountsCache.set(uuid, res, (new Date()).setMinutes((new Date()).getMinutes() + 2))
             return res.players;
         })
         .catch(e => {
@@ -146,17 +146,17 @@ exports.getPossessionAccountsPunishments = async (uuid)=>{
         return accountsCache.get(uuid).punishments;
     }
     const option = {
-        url : `${authData.url}/players/find_accounts/${uuid}`,
+        method: "GET",
         headers: {
             "Content-type": "application/json",
             "X-SpicyAzisaBan-Session": await auth.getToken(),
             "Origin" : "https://spicyazisaban.azisaba.net"
         }
     }
-    return  request.get(option)
-        .then(r => {
-            const res = JSON.parse(r, "utf-8");
-            accountsCache.set(uuid, res, (new Date()).setMinutes((new Date()).getMinutes()+2))
+    return  fetch(`${authData.url}/players/find_accounts/${uuid}`, option)
+        .then(async r => {
+            const res = await r.json();
+            accountsCache.set(uuid, res, (new Date()).setMinutes((new Date()).getMinutes() + 2))
             return res.punishments;
         })
         .catch(e => {

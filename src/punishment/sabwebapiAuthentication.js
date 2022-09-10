@@ -5,7 +5,7 @@ EntryReSender for discord bot
 
 ran by node.js
 
-2022-8-7
+2022-8-11
 
 */
 
@@ -13,44 +13,48 @@ ran by node.js
 
 const configManager = require("../config/configManager");
 const TokenCache = new (require("../util/cacheManager"))();
-const request = require('request-promise');
 
-function login(){
+async function login(){
     const authData = configManager.getBotData("punishmentAPI");
+
     const option = {
-        url : `${authData.url}/i_users/login`,
-        headers: {
+        method : "POST",
+        headers : {
             "Content-type": "application/json",
             "Origin" : "https://spicyazisaban.azisaba.net"
         },
-        json: {
+        body : JSON.stringify({
             email: authData.mail,
             password: authData.password,
             mfa_token: ""
-        }
-    }
-    const token = request.post(option)
-        .then(r => {
-            return r.state;
+        })
+    };
+
+    const token = await fetch(`${authData.url}/i_users/login`, option)
+        .then(async res=>{
+            if(res.ok) return (await res.json()).state;
+            return null;
         })
         .catch(e=>{
             console.log(e);
             return null;
-        })
+        });
+
     return token;
 }
 
 function logout(token){
     const authData = configManager.getBotData("punishmentAPI");
     const option = {
-        url : `${authData.url}/i_users/logout`,
+        method : "POST",
         headers: {
             "Content-type": "application/json",
             "X-SpicyAzisaBan-Session" : token,
             "Origin" : "https://spicyazisaban.azisaba.net"
         }
-    }
-    request.post(option)
+    };
+
+    fetch(`${authData.url}/i_users/logout`, option)
         .then(r=>{
             console.log(r);
         })
@@ -75,11 +79,11 @@ exports.getToken = async ()=>{
     return token;
 }
 
-exports.invalidateToken = ()=>{
+exports.invalidateToken = async ()=>{
     if(!TokenCache.exist("token")) return;
 
     const nowDate = (new Date()).getTime();
     if(TokenCache.get("token")) return;
 
-    logout(TokenCache.get("token").data);
+    await logout(TokenCache.get("token").data);
 }
