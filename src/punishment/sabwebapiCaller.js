@@ -16,9 +16,9 @@ const cacheManager = require("../util/cacheManager");
 const auth = require("./sabwebapiAuthentication");
 const authData = configManager.getBotData("punishmentAPI");
 
-const playerDataCache = new cacheManager();
-const punishmentCache = new cacheManager();
-const accountsCache = new cacheManager()
+const playerDataCache = new cacheManager(120);
+const punishmentCache = new cacheManager(120);
+const accountsCache = new cacheManager(120)
 
 exports.getPlayerDataByUUID = async (uuid)=>{
     if(playerDataCache.exist(uuid)){
@@ -35,7 +35,7 @@ exports.getPlayerDataByUUID = async (uuid)=>{
     }
     return await fetch(`${authData.url}/players/get/${uuid}`, option)
         .then(async r => {
-            playerDataCache.set(uuid, r, (new Date()).setMinutes((new Date()).getMinutes() + 2))
+            playerDataCache.set(uuid, r)
             return await r.json();
         })
         .catch(e => {
@@ -83,7 +83,7 @@ exports.getPlayerDataByName = async (name)=>{
                 "ip": "192.168.2.1"
             }
              */
-            playerDataCache.set(player.uuid, player, (new Date()).setMinutes((new Date()).getMinutes() + 2))
+            playerDataCache.set(player.uuid, player)
             return player
         })
         .catch(e => {
@@ -106,7 +106,7 @@ exports.getPunishmentData = async (punishmentId)=>{
     }
     return await fetch(`${authData.url}/punishments/get/${punishmentId}`, option)
         .then(async r => {
-            playerDataCache.set(punishmentId, r, (new Date()).setMinutes((new Date()).getMinutes() + 2))
+            playerDataCache.set(punishmentId, r)
             return await r.json();
         })
         .catch(e => {
@@ -131,7 +131,7 @@ exports.getPossessionAccounts = async (uuid)=>{
     return await fetch(`${authData.url}/players/find_accounts/${uuid}`, option)
         .then(async r => {
             const res = await r.json();
-            accountsCache.set(uuid, res, (new Date()).setMinutes((new Date()).getMinutes() + 2))
+            accountsCache.set(uuid, res);
             return res.players;
         })
         .catch(e => {
@@ -156,7 +156,7 @@ exports.getPossessionAccountsPunishments = async (uuid)=>{
     return  fetch(`${authData.url}/players/find_accounts/${uuid}`, option)
         .then(async r => {
             const res = await r.json();
-            accountsCache.set(uuid, res, (new Date()).setMinutes((new Date()).getMinutes() + 2))
+            accountsCache.set(uuid, res);
             return res.punishments;
         })
         .catch(e => {

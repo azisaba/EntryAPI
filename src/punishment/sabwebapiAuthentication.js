@@ -12,7 +12,7 @@ ran by node.js
 'use strict'
 
 const configManager = require("../config/configManager");
-const TokenCache = new (require("../util/cacheManager"))();
+const TokenCache = new (require("../util/cacheManager"))(60480);
 
 async function login(){
     const authData = configManager.getBotData("punishmentAPI");
@@ -66,7 +66,7 @@ function logout(token){
 exports.getToken = async ()=>{
     if(!TokenCache.exist("token")){
         const token = await login();
-        TokenCache.set("token", token, (new Date()).setDate(((new Date()).getDate()+7)));
+        TokenCache.set("token", token);
         return token;
     }
 
@@ -75,7 +75,7 @@ exports.getToken = async ()=>{
     }
 
     const token = await login();
-    TokenCache.set("token", token, (new Date()).setDate(((new Date()).getDate()+7)));
+    TokenCache.set("token", token);
     return token;
 }
 
