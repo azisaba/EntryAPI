@@ -14,7 +14,7 @@ ran by node.js
 const MinecraftPlayer = require("./MinecraftPlayer");
 
 class Punishment{
-    constructor(id, target, reason, type, operator, startTime, endTime, server, extra, active) {
+    constructor(id, target, reason, type, operator, startTime, endTime, server, active) {
         /**
          * @type {Number} 処罰id
          */
