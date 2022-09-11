@@ -11,7 +11,7 @@ ran by node.js
 
 'use strict'
 
-const sabwebapiCaller = require("../punishment/sabwebapiCaller")
+const sabwebapiCaller = require("../callApi/sabwebapiCaller")
 const e = require("express");
 
 class MinecraftPlayer{
