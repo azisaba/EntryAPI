@@ -26,8 +26,8 @@ const configManager = require("./src/config/configManager");
 const Package = require("./package.json");
 const apiMiddleware = require("./src/listener/httpRequest");
 const tokenManager = require("./src/authorization/tokenManager");
-const sabwebapiAuth = require("./src/punishment/sabwebapiAuthentication");
-const sab = require("./src/punishment/sabwebapiCaller")
+const sabwebapiAuth = require("./src/callApi/sabwebapiAuthentication");
+const sab = require("./src/callApi/sabwebapiCaller")
 
 //init
 require("./src/util/discord/channelCreate").init(DiscordClient);
