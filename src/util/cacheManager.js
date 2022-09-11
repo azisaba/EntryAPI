@@ -5,43 +5,50 @@ EntryReSender for discord bot
 
 ran by node.js
 
-2022-8-7
+2022-9-11
 
 */
 
 'use strict'
 
-module.exports = class CacheManager{
+module.exports = class CacheManager {
     cacheMap = {};
 
-    set(key, value, expired){
-        (this.cacheMap)[key] = {data:value, expired:expired};
+    /**
+     * @param {Number} expiredTime 有効期限を秒で指定する
+     */
+    constructor(expiredTime) {
+        this.expiredTime = expiredTime * 1000;
     }
 
-    get(key){
+    set(key, value) {
+        const expired = new Date();
+        expired.setTime(expired.getTime() + this.expiredTime)
+        (this.cacheMap)[key] = {data: value, expired: expired};
+    }
+
+    get(key) {
         const nowDate = (new Date()).getTime();
         const value = (this.cacheMap)[key];
-        if(value.expired<=nowDate || value.expired===null) return value.data;
+        if (value.expired <= nowDate || value.expired === null) return value.data;
         this.delete(key);
         return undefined;
     }
 
-    delete(key){
+    delete(key) {
         delete (this.cacheMap)[key];
     }
 
-    clearAll(){
+    clearAll() {
         for (const key in this.cacheMap) {
             delete (this.cacheMap)[key];
         }
     }
 
-    exist(key){
+    exist(key) {
         const nowDate = (new Date()).getTime();
         const value = (this.cacheMap)[key];
-        if(value === undefined || value.expired>nowDate) return false;
+        if (value === undefined || value.expired > nowDate) return false;
         return true;
     }
 }
-
-
