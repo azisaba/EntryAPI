@@ -5,7 +5,7 @@ EntryReSender for discord bot
 
 ran by node.js
 
-2022-9-11
+2022-9-12
 
 */
 
@@ -21,12 +21,22 @@ module.exports = class CacheManager {
         this.expiredTime = expiredTime * 1000;
     }
 
+    /**
+     * 新しいデータをリストに追加する。
+     * @param {String|Number} key
+     * @param {Any} value
+     */
     set(key, value) {
         const expired = new Date();
-        expired.setTime(expired.getTime() + this.expiredTime)
+        expired.setTime(expired.getTime() + this.expiredTime);
         (this.cacheMap)[key] = {data: value, expired: expired};
     }
 
+    /**
+     * リストから指定されたキーのデータを取得する
+     * @param {String|Number} key
+     * @return {Any|undefined}
+     */
     get(key) {
         const nowDate = (new Date()).getTime();
         const value = (this.cacheMap)[key];
@@ -35,20 +45,31 @@ module.exports = class CacheManager {
         return undefined;
     }
 
+    /**
+     * リストから指定されたキーのデータを削除する
+     * @param {String|Number} key
+     */
     delete(key) {
         delete (this.cacheMap)[key];
     }
 
+    /**
+     * リストを全て削除する
+     */
     clearAll() {
         for (const key in this.cacheMap) {
             delete (this.cacheMap)[key];
         }
     }
 
+    /**
+     * 指定したキーのデータがリストにあるかを返す。
+     * @param {String|Number} key
+     * @return {boolean}
+     */
     exist(key) {
         const nowDate = (new Date()).getTime();
         const value = (this.cacheMap)[key];
-        if (value === undefined || value.expired > nowDate) return false;
-        return true;
+        return !(value === undefined || value.expired > nowDate);
     }
 }
