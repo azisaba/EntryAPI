@@ -7,16 +7,16 @@ main.js
  
 ran by node.js
 
-2022-9-10
+2022-9-19
 
 */
 'use strict'
 
 //node.js modules
-const fs = require('fs');
 const express = require("express");
 const bodyParser = require('body-parser');
 const discord = require("discord.js");
+const EventEmitter = require("events");
 require('date-utils');
 
 //other 
@@ -34,12 +34,17 @@ require("./src/util/discord/channelCreate").init(DiscordClient);
 require("./src/entry/receiveEntry").init(DiscordClient);
 require("./src/util/discord/sendMessage").init(DiscordClient);
 require("./src/entry/entryContentManager").init();
+require("./src/callApi/discordjsApiCaller").init(DiscordClient);
+require("./src/config/RecruitmentsManager").init();
+
 const apiSrv = express();
+const entryEvent = new EventEmitter();
 
-
+require("./src/listener/httpRequest").init(entryEvent)
 
 apiSrv.use(bodyParser.json({extended: true}));
 apiSrv.use('/', apiMiddleware.middleware);
+
 
 logger.info(`This service is standing now...`);
 process.on("exit", ()=>{
