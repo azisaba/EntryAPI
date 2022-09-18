@@ -14,7 +14,7 @@ ran by node.js
 const {Entry} = require("./Entry");
 
 class EntryContent{
-    constructor(reasonForApplying, career, participatingProject, availableTimeOfDay, availableDaysOfWeek, availableTimeZone, skill, job, playtime, selfPR, entryRecruitments) {
+    constructor(reasonForApplying, career, participatingProject, availableTimeOfDay, availableDaysOfWeek, availableTimeZone, skills, jobs, playtime, selfPR) {
         /**
          * @type {String} 志望理由
          */
@@ -48,12 +48,12 @@ class EntryContent{
         /**
          * @type {String} 所持技術
          */
-        this.skill = skill;
+        this.skill = skills;
 
         /**
          * @type {String} 希望職種
          */
-        this.job = job;
+        this.job = jobs;
 
         /**
          * @type {String} アジ鯖プレイ時間
