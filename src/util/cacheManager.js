@@ -5,7 +5,7 @@ EntryReSender for discord bot
 
 ran by node.js
 
-2022-9-12
+2022-9-18
 
 */
 
@@ -40,9 +40,23 @@ module.exports = class CacheManager {
     get(key) {
         const nowDate = (new Date()).getTime();
         const value = (this.cacheMap)[key];
-        if (value.expired <= nowDate || value.expired === null) return value.data;
+        if ( Date.now() <= value.expired || value.expired === null) return value.data;
         this.delete(key);
         return undefined;
+    }
+
+    /**
+     * 各要素に対して指定された関数を一度だけ実行する
+     * @param {(
+     *      value?: any
+     *      )=>any} callback
+     * @return void
+     */
+    forEach(callback){
+        for (const key in this.cacheMap) {
+            if ( Date.now() <= this.cacheMap[key].expired || this.cacheMap[key].expired === null) callback(this.cacheMap[key].data);
+            this.delete(key);
+        }
     }
 
     /**
