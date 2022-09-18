@@ -5,16 +5,25 @@ EntryReSender for discord bot
 
 ran by node.js
 
-2022-9-6
+2022-9-18
 
 */
 
 'use strict'
 
 const MinecraftPlayer = require("./MinecraftPlayer");
+const azisabaAPI = require("../callApi/azisabaApiCaller");
 
 class Punishment{
-    constructor(id, target, reason, type, operator, startTime, endTime, server, active) {
+    /**
+     * @param {Number}id
+     * @param {MinecraftPlayer}target
+     * @param {String}type
+     * @param {MinecraftPlayer}operator
+     * @param {Date}startTime
+     * @param {Date|Number}endTime
+     */
+    constructor(id, target, type, operator, startTime, endTime) {
         /**
          * @type {Number} 処罰id
          */
@@ -24,11 +33,6 @@ class Punishment{
          * @type {MinecraftPlayer} 処罰対象プレイヤー
          */
         this.target = target;
-
-        /**
-         * @type {MinecraftPlayer} 処罰の理由
-         */
-        this.reason = reason;
 
         /**
          * @type {String} 処罰の種類
@@ -50,19 +54,43 @@ class Punishment{
          */
         this.endTime = endTime;
 
-        /**
-         * @type {String} 処罰されたサーバー
-         */
-        this.server = server;
+    }
 
-        /**
-         * @type {Boolean} 処罰が有効か
-         */
-        this.active = active;
+    /**
+     * 処罰された理由を取得する
+     * @return {Promise<String>}
+     */
+    getReason() {
+        return azisabaAPI.getPunishmentById(this.id)
+            .then(value => {
+                return value.reason;
+            })
+    }
+
+    /**
+     * 処罰されたサーバーを取得する
+     * @return {Promise<String>}
+     */
+    getServer() {
+        return azisabaAPI.getPunishmentById(this.id)
+            .then(value => {
+                return value.server;
+            })
+    }
+
+    /**
+     * 処罰が有効か取得する
+     * @return {Promise<boolean>}
+     */
+    isActive() {
+        return azisabaAPI.getPunishmentById(this.id)
+            .then(value => {
+                return value.active;
+            })
     }
 
     //to method
-    //reason, endtime,active, proofs
+    // proofs
 }
 
 module.exports = Punishment;
