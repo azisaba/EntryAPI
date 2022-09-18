@@ -43,8 +43,12 @@ exports.setRecruitmentsData = (key, value)=>{
     RecruitmentsData[key] = value;
 }
 
+exports.getAllgRecruitmentsData = ()=>{
+    return RecruitmentsData;
+}
+
 exports.removeRecruitmentsData = (key)=>{
-    if(RecruitmentsData[key]==undefined) throw Error("The element does not exist.")
+    if(RecruitmentsData[key]===undefined) throw Error("The element does not exist.")
     delete RecruitmentsData[key];
 }
 
@@ -57,8 +61,12 @@ exports.setOrgData = (key, value)=>{
     OrgData[key] = value;
 }
 
+exports.getAllOrgData = ()=>{
+    return OrgData;
+}
+
 exports.removeOrgData = (key)=>{
-    if(OrgData[key]==undefined) throw Error("The element does not exist.")
+    if(OrgData[key]===undefined) throw Error("The element does not exist.")
     delete OrgData[key];
 }
 
