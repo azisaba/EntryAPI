@@ -5,7 +5,7 @@ EntryReSender for discord bot
  
 ran by node.js
 
-2022-9-10
+2022-9-19
 
 */
 
@@ -14,8 +14,21 @@ ran by node.js
 const router = require("express").Router();
 const tokenManager = require("../authorization/tokenManager");
 const entryManager = require("../entry/entryContentManager");
-const receiveEntry = require("../entry/receiveEntry");
+const recruitmentManager = require("../config/RecruitmentsManager");
 
+const Applicant = require("../structures/Applicant");
+const EntryContent = require("../structures/EntryContent");
+const Entry = require("../structures/Entry");
+
+const buildMinecraftPlayer = require("../buildStructure/buildMinecraftPlayer");
+const buildPunishment = require("../buildStructure/buildPunishment");
+const discordjsAPI = require("../callApi/discordjsApiCaller");
+
+const {EventEmitter} = require("events")
+/**
+ * @type {EventEmitter}
+ */
+let entryEvent = null;
 
 router.post('/', async(req,res)=>{
     const token = req.headers.token
@@ -37,8 +50,51 @@ router.post('/', async(req,res)=>{
         res.status(400).send(`Bad Request`);
         return;
     }
-    receiveEntry.receiveEntry(reqBody);
     res.status(200).send("ok");
+
+    //reasonForApplying, career, participatingProject, availableTimeOfDay, availableDaysOfWeek, availableTimeZone, skills, job, playtime, selfPR
+    const entryContent = new EntryContent(
+        reqBody.contents.reasonForApplying,
+        reqBody.contents.career,
+        reqBody.contents.participatingProject,
+        reqBody.contents.availableTimeOfDay,
+        reqBody.contents.availableDaysOfWeek,
+        reqBody.contents.availableTimeZone,
+        reqBody.contents.skills,
+        reqBody.contents.jobs,
+        reqBody.contents.playtime,
+        reqBody.contents.selfPR,
+    );
+
+    const MinecraftPlayerDataOfApplicant = await buildMinecraftPlayer.buildByName(reqBody.contents.mcid);
+
+    const applicant = new Applicant(
+        reqBody.contents.name,
+        MinecraftPlayerDataOfApplicant,
+        discordjsAPI.getGuildMemberFromUserIdAndGuildId("725693556584611892", reqBody.contents.discordId),
+        await buildPunishment.buildFromUserUUID(MinecraftPlayerDataOfApplicant.uuid),
+        reqBody.contents.twitterId
+    )
+
+    const entry = new Entry(
+        reqBody.entryId,
+        recruitmentManager.getById(reqBody.RecruitmentId),
+        applicant,
+        entryContent,
+        reqBody.contents.entryRecruitments.map(value=>{
+            console.log(recruitmentManager.getById(value))
+           return recruitmentManager.getById(value);
+        }),
+        reqBody.timestamp
+    )
+    entryEvent.emit("receive", entry);
+
 })
 
 exports.middleware = router;
+
+/**
+ *
+ * @param {EventEmitter}event
+ */
+exports.init = (event)=>{entryEvent = event;}
