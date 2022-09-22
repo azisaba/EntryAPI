@@ -7,7 +7,7 @@ main.js
  
 ran by node.js
 
-2022-9-19
+2022-9-23
 
 */
 'use strict'
@@ -30,9 +30,7 @@ const sabwebapiAuth = require("./src/callApi/sabwebapiAuthentication");
 const sab = require("./src/callApi/sabwebapiCaller")
 
 //init
-require("./src/util/discord/channelCreate").init(DiscordClient);
 require("./src/entry/receiveEntry").init(DiscordClient);
-require("./src/util/discord/sendMessage").init(DiscordClient);
 require("./src/entry/entryContentManager").init();
 require("./src/callApi/discordjsApiCaller").init(DiscordClient);
 require("./src/config/RecruitmentsManager").init();
