@@ -5,7 +5,7 @@ EntryReSender for discord bot
 
 ran by node.js
 
-2022-9-8
+2022-9-23
 
 */
 
@@ -16,7 +16,7 @@ const {GuildMember} = require("discord.js");
 const {Punishment} = require("./Punishment");
 
 class Applicant{
-    constructor(name, minecraftPlayer, DiscordGuildMember, punishments, twitterId) {
+    constructor(name, minecraftPlayer, DiscordGuildMember, punishments, twitterId=null) {
         /**
          * @type {String} 応募者の名前
          */
@@ -38,9 +38,25 @@ class Applicant{
         this.punishments = punishments;
 
         /**
-         * @type {String} 応募者のTwitterのId
+         * @type {String|null} 応募者のTwitterのId
          */
         this.twitterId = twitterId;
+    }
+
+    getEmbedFields(){
+        const buildField = (name, value)=>{
+            return {
+                name : name,
+                value : value
+            }
+        }
+
+        const fields = [];
+        fields.push(buildField("名前", this.name));
+        fields.push(buildField("MCID", `[${this.minecraft.username}](https://spicyazisaban.azisaba.net/search?q=${this.minecraft.username})`));
+        fields.push(buildField("Discordユーザー名", `<@${this.discord.id}>`));
+        fields.push(buildField("Twitter", this.twitterId ?`[${this.minecraft.username}](https://twitter.com/${this.minecraft.username})` : "もっていない"));
+        return fields;
     }
 }
 
