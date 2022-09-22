@@ -38,7 +38,8 @@ require("./src/config/RecruitmentsManager").init();
 const apiSrv = express();
 const entryEvent = new EventEmitter();
 
-require("./src/listener/httpRequest").init(entryEvent)
+require("./src/listener/httpRequest").init(entryEvent);
+require("./src/listener/receiveEntryListener")(entryEvent);
 
 apiSrv.use(bodyParser.json({extended: true}));
 apiSrv.use('/', apiMiddleware.middleware);
