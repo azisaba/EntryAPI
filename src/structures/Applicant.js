@@ -43,19 +43,18 @@ class Applicant{
         this.twitterId = twitterId;
     }
 
-    getEmbedFields(){
+    async getEmbedFields(){
         const buildField = (name, value)=>{
             return {
                 name : name,
                 value : value
             }
         }
-
         const fields = [];
         fields.push(buildField("名前", this.name));
         fields.push(buildField("MCID", `[${this.minecraft.username}](https://spicyazisaban.azisaba.net/search?q=${this.minecraft.username})`));
-        fields.push(buildField("Discordユーザー名", `<@${this.discord.id}>`));
-        fields.push(buildField("Twitter", this.twitterId ?`[${this.minecraft.username}](https://twitter.com/${this.minecraft.username})` : "もっていない"));
+        fields.push(buildField("Discordユーザー名", `<@${(await this.discord).id}>`));
+        fields.push(buildField("Twitter", this.twitterId ?`[${this.twitterId}](https://twitter.com/${this.twitterId})` : "もっていない"));
         return fields;
     }
 }
