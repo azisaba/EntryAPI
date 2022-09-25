@@ -36,7 +36,7 @@ exports.buildByUUID = async (uuid)=>{
  * @return {Promise<MinecraftPlayer>}
  */
 exports.buildByName = async (name)=>{
-    const uuid = (await sabAPI.getPlayerDataByName(name)).uuid;
+    const uuid = (await azisabaAPI.getPlayerByName(name)).uuid;
     return new MinecraftPlayer(
         name,
         uuid
