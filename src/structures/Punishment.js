@@ -42,7 +42,7 @@ class Punishment{
         /**
          * @type {MinecraftPlayer} 処罰執行プレイヤー
          */
-        this.operator = operator;
+        this.actor = operator;
 
         /**
          * @type {Date} 処罰された日時
@@ -90,7 +90,7 @@ class Punishment{
     }
 
     //to method
-    // proofs
+    // proofs, embed
 }
 
 module.exports = Punishment;
