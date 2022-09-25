@@ -30,7 +30,6 @@ const sabwebapiAuth = require("./src/callApi/sabwebapiAuthentication");
 const sab = require("./src/callApi/sabwebapiCaller")
 
 //init
-require("./src/entry/receiveEntry").init(DiscordClient);
 require("./src/entry/entryContentManager").init();
 require("./src/callApi/discordjsApiCaller").init(DiscordClient);
 require("./src/config/RecruitmentsManager").init();
