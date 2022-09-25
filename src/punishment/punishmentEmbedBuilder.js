@@ -21,7 +21,7 @@ const Discord = require("discord.js");
  */
 exports.buildPlayerSummary = async (punishments)=>{
     const list = (await Promise.all(punishments)).map(async punishment=>{
-            return `[#${(punishment.id)}](https://spicyazisaban.azisaba.net/punishments/view?id=${punishment.id}) ${punishment.type} ${await (await punishment).getReason()} 処罰日:<t:${Math.floor((await punishment).startTime.getTime()/1000)}:F> ${await (await punishment).isActive() ? "" : "解除済"}`;
+            return `[#${(punishment.id)}](https://spicyazisaban.azisaba.net/punishments/view?id=${punishment.id}) ${punishment.type} ${await (await punishment).getReason()} 処罰日:<t:${Math.floor((await punishment).startTime.getTime()/1000)}:D> ${await (await punishment).isActive() ? "" : "解除済"}`;
         })
 
     return {embeds: [new Discord.MessageEmbed()
