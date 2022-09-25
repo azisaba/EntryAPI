@@ -36,7 +36,7 @@ const buildFromJsonObject = async(punishData)=>{
 /**
  * プレイヤーuuidから複数のPunishmentクラスを組み立て、配列で返す
  * @param uuid
- * @return {Promise<Punishment[]>}
+ * @return {Array<Promise<Punishment[]>>}
  */
 exports.buildFromUserUUID = async (uuid)=>{
     const punishmentsJsonObj = await azisabaAPI.getPunishmentByPlayerUUID(uuid);
