@@ -45,6 +45,35 @@ const getPlayerByUUID = async (uuid)=>{
 }
 
 /**
+ * アジ鯖APIを利用して、ユーザーネーム(mcid)からMinecraftのプレイヤーデータを取得する。
+ * @param {String}name
+ * @return {Promise<Response|null>}
+ */
+const getPlayerByName = async (name)=>{
+    let playerCache = null;
+    playerDataCache.forEach(value=>{
+        if(value.name===name) playerCache=value;
+    })
+    if(playerCache) return playerCache;
+
+    return await httpReqest("GET", `players/by-name/${name}`, {})
+        .then(async r => {
+            const response = await r.json();
+            if (!r.ok) {
+                console.log(response);
+                return null;
+            }
+
+            playerDataCache.set(response.uuid, response);
+            return response;
+        })
+        .catch(e => {
+            console.log(e);
+            return null;
+        });
+}
+
+/**
  * アジ鯖APIを利用して、uuidからプレイヤーの処罰情報を取得する。
  * @param {String} uuid
  * @return {Promise<Array<Object>|null>}
@@ -114,5 +143,6 @@ const httpReqest = (method, path, option={})=>{
 }
 
 exports.getPlayerByUUID = getPlayerByUUID;
+exports.getPlayerByName = getPlayerByName;
 exports.getPunishmentByPlayerUUID = getPunishmentByPlayerUUID;
 exports.getPunishmentById = getPunishmentById;
