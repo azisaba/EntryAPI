@@ -67,6 +67,7 @@ exports.getPlayerDataByName = async (name)=>{
     }
     return fetch(`${authData.url}/misc/search`, option)
         .then(async r => {
+            if(!r.ok) return null;
             const players = await (await r.json()).players;
 
             if (players.length === 0) return null;
