@@ -82,13 +82,11 @@ router.post('/', async(req,res)=>{
         applicant,
         entryContent,
         reqBody.contents.entryRecruitments.map(value=>{
-            console.log(recruitmentManager.getById(value))
            return recruitmentManager.getById(value);
         }),
         reqBody.timestamp
     )
     entryEvent.emit("receive", entry);
-
 })
 
 exports.middleware = router;
