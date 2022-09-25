@@ -16,7 +16,7 @@ const {Organization} = require("./Organization");
 class Recruitment{
     constructor(id, name, organization, mention, reception) {
         /**
-         * @type {Number} 募集id
+         * @type {String} 募集id
          */
         this.id = id;
 
