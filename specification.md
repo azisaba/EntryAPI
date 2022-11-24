@@ -1,4 +1,4 @@
-# EntryReSender API仕様書
+# EntryAPI API仕様書
 
 post body
 ```json

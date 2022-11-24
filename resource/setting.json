@@ -1,8 +1,8 @@
 {
-    "NAME" : "EntryReSender",
+    "NAME" : "EntryAPI",
     "MAIN_TOKEN" : "",
     "DIV_TOKEN" : "",
     "PREFIX" : "//",
-    "COMMAND" : "ers",
+    "COMMAND" : "ea",
     "PORT" : 3000
 }

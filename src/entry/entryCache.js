@@ -1,14 +1,3 @@
-/*
-
-created by huda0209
-EntryReSender for discord bot
-
-ran by node.js
-
-2022-7-19
-
-*/
-
 'use strict'
 
 const configManager = require("../config/configManager");

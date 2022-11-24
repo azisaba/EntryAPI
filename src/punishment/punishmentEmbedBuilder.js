@@ -1,14 +1,3 @@
-/*
-
-created by huda0209
-EntryReSender for discord bot
-
-ran by node.js
-
-2022-9-23
-
-*/
-
 'use strict'
 
 const Discord = require("discord.js");

@@ -1,9 +1,9 @@
 {
-  "name": "entry-resender",
+  "name": "entry-api",
   "version": "0.0.1",
-  "description": "Send entry information back to the thread.",
+  "description": "Provide an API for recruitment.",
   "main": "main.js",
-  "repository": "https://github.com/azisaba/EntryReSender",
+  "repository": "https://github.com/azisaba/EntryAPI",
   "author": "huda0209",
   "license": "MIT",
   "private": false,

@@ -1,14 +1,4 @@
 /*
-created by huda0209
-EntryReSender
-
-resource.js
- 
-ran by node.js
-2022-7-19
-*/
-
-/*
 DON'T TOUCH!!
 */
 
@@ -19,7 +9,7 @@ module.exports =  {
             NAME : {
                 canEmpty : false,
                 replace : false,
-                default : "EntryReSender"
+                default : "EntryAPI"
             },
             MAIN_TOKEN : {
                 canEmpty : false,
