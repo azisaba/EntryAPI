@@ -3,7 +3,7 @@
 const {TextChannel} = require("discord.js");
 
 class Organization{
-    constructor(name, sign, channel, description=null) {
+    constructor(name, sign, channel) {
         /**
          * @type {String} 組織名
          */
@@ -18,11 +18,6 @@ class Organization{
          * @type {TextChannel} 組織応募情報送信チャンネル
          */
         this.channel = channel;
-
-        /**
-         * @type {String} 組織説明
-         */
-        this.description = description
     }
 
     /**
@@ -31,14 +26,6 @@ class Organization{
      */
     setChannel(channel){
         this.channel = channel;
-    }
-
-    /**
-     * 組織説明を設定する。
-     * @param {String} description 組織説明
-     */
-    setDescription(description){
-        this.description = description;
     }
 
     //delete ...
