@@ -44,5 +44,11 @@ exports.init = async ()=>{
  * @return {Recruitment}
  */
 exports.getById = (id)=>{
-    return recruitments.has(id) ? recruitments.get(id) : recruitments.get("default");
+    if(recruitments.has(id)) return recruitments.get(id);
+    /**
+     * @type {Recruitment}
+     */
+    const defaultRecruitment = recruitments.get("default");
+    defaultRecruitment.id = id;
+    return defaultRecruitment;
 }
