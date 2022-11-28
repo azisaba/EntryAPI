@@ -1,11 +1,17 @@
 'use strict'
 
 const {MinecraftPlayer} = require("./MinecraftPlayer");
-const {GuildMember} = require("discord.js");
 const {Punishment} = require("./Punishment");
 
 class Applicant{
-    constructor(name, minecraftPlayer, DiscordGuildMember, punishments, twitterId=null) {
+    /**
+     * @param name
+     * @param minecraftPlayer
+     * @param DiscordUserName
+     * @param punishments
+     * @param twitterId
+     */
+    constructor(name, minecraftPlayer, DiscordUserName, punishments, twitterId=null) {
         /**
          * @type {String} 応募者の名前
          */
@@ -17,9 +23,9 @@ class Applicant{
         this.minecraft = minecraftPlayer;
 
         /**
-         * @type {GuildMember} 応募者のDiscord(アジ鯖公式)のギルドメンバーデータ
+         * @type {String} Discordのユーザーネーム
          */
-        this.discord = DiscordGuildMember;
+        this.DiscordUserName = DiscordUserName;
 
         /**
          * @type {Array<Punishment>} 応募者のMinecraftの処罰データの配列
@@ -41,8 +47,8 @@ class Applicant{
         }
         const fields = [];
         fields.push(buildField("名前", this.name));
-        fields.push(buildField("MCID", `[${this.minecraft.username}](https://spicyazisaban.azisaba.net/search?q=${this.minecraft.username})`));
-        fields.push(buildField("Discordユーザー名", `<@${(await this.discord).id}>`));
+        fields.push(buildField("MCID", `[${this.minecraft.username}](https://spicyazisaban.azisaba.net/search?q=${this.minecraft.username})${this.minecraft.uuid?"":"(存在しない)"}`));
+        fields.push(buildField("Discordユーザー名", this.DiscordUserName));
         fields.push(buildField("Twitter", this.twitterId ?`[${this.twitterId}](https://twitter.com/${this.twitterId})` : "もっていない"));
         return fields;
     }
