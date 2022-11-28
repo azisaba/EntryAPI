@@ -60,8 +60,8 @@ router.post('/', async(req,res)=>{
     const applicant = new Applicant(
         reqBody.contents.name,
         MinecraftPlayerDataOfApplicant,
-        discordjsAPI.getGuildMemberFromUserIdAndGuildId("725693556584611892", reqBody.contents.discordId),
-        await buildPunishment.buildFromUserUUID(MinecraftPlayerDataOfApplicant.uuid),
+        reqBody.contents.discordName,
+        buildPunishment.buildFromUserUUID(MinecraftPlayerDataOfApplicant.uuid),
         reqBody.contents.twitterId
     )
 
