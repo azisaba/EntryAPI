@@ -43,7 +43,7 @@ exports.removeRecruitmentsData = (key)=>{
 
 
 exports.getOrgData = (key)=>{
-    return OrgData[key] ? OrgData[key] : OrgData["default"];
+    return OrgData[key] ? OrgData[key] : OrgData["error"];
 }
 
 exports.setOrgData = (key, value)=>{
