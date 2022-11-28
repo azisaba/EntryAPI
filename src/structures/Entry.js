@@ -51,7 +51,7 @@ class Entry{
      * @return {Promise<void>}
      */
     createThreadChannelWithStartMsg(){
-        const symbol = this.recruitment.id==="default" ? "💥" : !this.recruitment.reception? "⚠" :"🟩";
+        const symbol = this.recruitment.organization.sign==="error" ? "💥" : !this.recruitment.reception? "⚠" :"🟩";
         const threadName = `${symbol}[${this.applicant.minecraft.username}] ${this.recruitment.name}(${this.recruitment.id}) - 応募ID ${this.entryId}`;
 
         this.channel = discordAPI.createPublicThreadWithStartMessage(this.recruitment.organization.channel.id.toString(), threadName, threadName)
